@@ -16,7 +16,7 @@ This Laravel application provides functionalities to view and manage election re
 1. **Clone the repository:**
     ```sh
     git clone https://github.com/youngyusuff6/polls.git
-    cd polling-unit-results
+    cd polls
     ```
 
 2. **Install dependencies:**
