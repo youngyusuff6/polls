@@ -1,64 +1,107 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Polling Unit Results Application
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This Laravel application provides functionalities to view and manage election results for polling units under various local government areas (LGAs) within Delta State. The application includes the following features:
+1. View results for individual polling units.
+2. View summarized total results for all polling units under a particular LGA.
+3. Enter results for new polling units.
 
-## About Laravel
+## Prerequisites
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP >= 7.3
+- Composer
+- MySQL or MariaDB
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Clone the repository:**
+    ```sh
+    git clone https://github.com/youngyusuff6/polls.git
+    cd polling-unit-results
+    ```
 
-## Learning Laravel
+2. **Install dependencies:**
+    ```sh
+    composer install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Configure environment:**
+    Copy the `.env.example` to `.env` and update the database configuration.
+    ```sh
+    cp .env.example .env
+    ```
+    Update the `.env` file with your database credentials:
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=your_database_name
+    DB_USERNAME=your_database_user
+    DB_PASSWORD=your_database_password
+    ```
 
-## Laravel Sponsors
+4. **Import the database:**
+    Download the database file and import it into your MySQL database.
+    ```sh
+    mysql -u your_database_user -p your_database_name < path/to/bincom_test.sql
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+5. **Generate application key:**
+    ```sh
+    php artisan key:generate
+    ```
 
-### Premium Partners
+6. **Run migrations:**
+    ```sh
+    php artisan migrate
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+7. **Serve the application:**
+    ```sh
+    php artisan serve
+    ```
+
+## Usage
+
+### Viewing Polling Unit Results
+1. Navigate to `http://localhost:8000` or `https://bincomtests.000webhostapp.com`.
+2. Use the navigation bar to select "View Polling Unit Results".
+3. Select a Local Government Area (LGA), then a Ward, and finally a Polling Unit to view the results.
+
+### Viewing LGA Summary Results
+1. Use the navigation bar to select "View LGA Summary Results".
+2. Select a Local Government Area (LGA) to view the summarized total results for all polling units under that LGA.
+
+### Entering New Polling Unit Results
+1. Use the navigation bar to select "Enter New Polling Unit Results".
+2. Fill in the form with the necessary details and submit to save the new results.
+
+## Project Structure
+
+- **app/Models**: Contains the Eloquent models for the application.
+- **app/Http/Controllers**: Contains the controllers for handling HTTP requests.
+- **resources/views**: Contains the Blade templates for the application.
+- **routes/web.php**: Contains the web routes for the application.
+
+## Key Files
+
+- **PollingUnitController.php**: Handles fetching and summarizing polling unit results.
+- **lga-summary.blade.php**: View for displaying summarized total results for an LGA.
+- **polling-unit-results.blade.php**: View for displaying individual polling unit results.
+- **new-result.blade.php**: View for entering new polling unit results.
+
+## Endpoints
+
+- `GET /wards/{lga_id}`: Fetches wards under a specific LGA.
+- `GET /polling-units/{ward_id}/units`: Fetches polling units under a specific ward.
+- `GET /polling-units/{polling_unit_id}/results`: Fetches results for a specific polling unit.
+- `GET /lga-summary/{lga_id}`: Fetches summarized total results for an LGA.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -am 'Add new feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Create a new Pull Request.
